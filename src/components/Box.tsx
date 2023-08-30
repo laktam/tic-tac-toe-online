@@ -26,13 +26,13 @@ export function Box(props: Props) {
     // padding: 5px;
     &:hover {
       // border: 5px solid #7895CB;
-      background-color: rgba(0, 255, 0, 0.2);
+      // background-color: rgba(0, 255, 0, 0.25);
     }
   `;
   const Outer = styled.div`
-    padding: 18px;
+    padding: 11%;
     &:hover {
-      background-color: rgba(0, 255, 0, 0.2);
+      background-color: rgba(0, 255, 0, 0.25);
     }
   `;
 
