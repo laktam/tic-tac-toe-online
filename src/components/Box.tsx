@@ -29,34 +29,43 @@ export function Box(props: Props) {
       background-color: rgba(0, 255, 0, 0.2);
     }
   `;
+  const Outer = styled.div`
+    padding: 18px;
+    &:hover {
+      background-color: rgba(0, 255, 0, 0.2);
+    }
+  `;
 
   return (
-    <Div
-      style={{
-        backgroundImage:
-          props.board[props.index] === "X"
-            ? `url(${X})`
-            : props.board[props.index] === "O"
-            ? `url(${O})`
-            : "",
-      }}
-      onClick={() => {
-        if (
-          props.board[props.index] === undefined ||
-          props.board[props.index] === null
-        ) {
-          if (!isClicked && props.canPlay) {
-            setIsClicked(true);
-            props.socket?.emit("move", {
-              lobbyId: props.lobbyId,
-              index: props.index,
-            });
-            props.setCanPlay(false);
+    <Outer>
+      <Div
+        style={{
+          backgroundImage:
+            props.board[props.index] === "X"
+              ? `url(${X})`
+              : props.board[props.index] === "O"
+              ? `url(${O})`
+              : "",
+
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+        onClick={() => {
+          if (
+            props.board[props.index] === undefined ||
+            props.board[props.index] === null
+          ) {
+            if (!isClicked && props.canPlay) {
+              setIsClicked(true);
+              props.socket?.emit("move", {
+                lobbyId: props.lobbyId,
+                index: props.index,
+              });
+              props.setCanPlay(false);
+            }
           }
-        }
-      }}
-    >
-      {props.board[props.index]}
-    </Div>
+        }}
+      ></Div>
+    </Outer>
   );
 }

@@ -1,10 +1,11 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Chip, Grid, TextField } from "@mui/material";
 import "./App.css";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Box } from "./components/Box";
 import { io } from "socket.io-client";
 import { Invitation } from "./components/Invitation";
 import Board from "../src/images/CropedCleanedBoard.png";
+import { inherits } from "util";
 
 const socket = io("http://localhost:3001"); // Replace with your server URL
 
@@ -41,22 +42,52 @@ function App() {
   }, []);
 
   const invitePlayer = () => {
-    const p2 = window.prompt("Please enter player id:");
-    if (p2) setOther(p2);
-    socket.emit("invitePlayer", { p1: player, p2: p2 });
+    // const p2 = window.prompt("Please enter player id:");
+    // if (p2) setOther(p2);
+    socket.emit("invitePlayer", { p1: player, p2: other });
+  };
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setOther(event.target.value);
   };
 
   return (
     <div className="App">
-      <div style={{ margin: "4px" }}>
-        <Button onClick={invitePlayer}>invite a player</Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignContent: "center",
+          flexWrap: "wrap",
+          margin: "8px",
+        }}
+      >
+        <div>
+          <Button
+            style={{ margin: "6px" }}
+            variant="outlined"
+            onClick={invitePlayer}
+          >
+            invite a player
+          </Button>
+          <TextField
+            style={{ margin: "6px" }}
+            id="outlined-basic"
+            label="player ID"
+            variant="outlined"
+            onChange={handleChange}
+            value={other}
+            size="small"
+            // style={{ marginLeft: "5px" }}
+          />
+        </div>
         <Button
-          style={{ marginLeft: "5px" }}
+          style={{ margin: "6px" }}
           variant="contained"
           disabled={!canPlay}
         >
           Your Turn
         </Button>
+        <Chip label={`your id: ${player}`} style={{ margin: "6px" }} />
       </div>
       <Grid container>
         <Grid item container xs sm></Grid>
@@ -74,11 +105,7 @@ function App() {
         >
           {arr.map((item) => {
             return (
-              <Grid
-                key={item}
-                item
-                xs={4}
-              >
+              <Grid key={item} item xs={4}>
                 <Box
                   board={board}
                   lobbyId={lobbyId}
