@@ -1,9 +1,17 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
 type Props = {
   player?: boolean;
   setPlayer?: any;
+  index: number;
+  canPlay?: boolean;
+  setCanPlay?: any;
+  socket?: Socket<DefaultEventsMap, DefaultEventsMap>;
+  lobbyId?: number;
+  board: string[];
 };
 export function Box(props: Props) {
   const [isClicked, setIsClicked] = useState(false);
@@ -22,15 +30,19 @@ export function Box(props: Props) {
   return (
     <Div
       onClick={() => {
-        if (!isClicked) {
-          setIsClicked(true);
-          props.setPlayer(!props.player);
-          if (props.player) setState("x");
-          if (!props.player) setState("o");
+        if (props.board[props.index] === undefined || props.board[props.index] === null) {
+          if (!isClicked && props.canPlay) {
+            setIsClicked(true);
+            props.socket?.emit("move", {
+              lobbyId: props.lobbyId,
+              index: props.index,
+            });
+            props.setCanPlay(false);
+          }
         }
       }}
     >
-      {state}
+      {props.board[props.index]}
     </Div>
   );
 }
