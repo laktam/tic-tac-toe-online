@@ -9,6 +9,7 @@ const socket = io("http://localhost:3001"); // Replace with your server URL
 
 function App() {
   // const [player, setPlayer] = useState(true);
+  const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   const [board, setBoard] = useState([]);
   const [player, setPlayer] = useState("");
   const [other, setOther] = useState("");
@@ -36,7 +37,6 @@ function App() {
       console.log("board received :", board);
       setBoard(board);
     });
-
   }, []);
 
   const invitePlayer = () => {
@@ -47,116 +47,39 @@ function App() {
 
   return (
     <div className="App">
-      <button  onClick={invitePlayer}>invite a player</button>
-      <Button variant="contained" disabled={false}>Your Turn</Button>
+      <button onClick={invitePlayer}>invite a player</button>
+      <Button variant="contained" disabled={false}>
+        Your Turn
+      </Button>
 
       <Grid container>
-        <Grid item xs={0} sm={1.5} md={3} lg={3.3}/>
-        {/*  */}
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={0}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
+        <Grid item container xs sm></Grid>
+        <Grid
+          item
+          container
+          xs={12}
+          sm={8}
+          md={5}
+          style={{ border: "2px solid black" }}
+        >
+          {arr.map((item) => {
+            return (
+              <Grid key={item} item xs={4}>
+                <Box
+                  board={board}
+                  lobbyId={lobbyId}
+                  index={item}
+                  canPlay={canPlay}
+                  setCanPlay={setCanPlay}
+                  socket={socket}
+                />
+              </Grid>
+            );
+          })}
         </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={1}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={2}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={0} sm={1.5} md={3} lg={3.3}/>
-
-        {/*  */}
-        <Grid item xs={0} sm={1.5} md={3} lg={3.3}/>
-
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={3}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={4}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={5}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={0} sm={1.5} md={3} lg={3.3}/>
-
-
-        {/*  */}
-        <Grid item xs={0} sm={1.5} md={3} lg={3.3}/>
-
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={6}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={7}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={1.8}>
-          <Box
-            board={board}
-            lobbyId={lobbyId}
-            index={8}
-            canPlay={canPlay}
-            setCanPlay={setCanPlay}
-            socket={socket}
-          />
-        </Grid>
-        <Grid item xs={0} sm={1.5} md={3} lg={3.3}/>
-
+        <Grid item container xs sm></Grid>
       </Grid>
+      
       <Invitation socket={socket} />
     </div>
   );
