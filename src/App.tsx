@@ -11,6 +11,7 @@ function App() {
   const [board, setBoard] = useState([]);
   const [player, setPlayer] = useState("");
   const [other, setOther] = useState("");
+  const [lobbyId, setLobbyId] = useState();
   useEffect(() => {
     //get id from server
     socket.on("id", (data) => {
@@ -18,9 +19,14 @@ function App() {
       setPlayer(data);
     });
 
-    socket.on("invitation", (data) => {
-      console.log("invitation from ", data);
+    socket.on("lobbyId", (data) => {
+      console.log("Received Lobby id:", data);
+      setLobbyId(data);
     });
+
+    // socket.on("invitation", (data) => {
+    //   console.log("invitation from ", data);
+    // });
     //   setLobby((prev) => ({
     //     ...prev, // Spread the existing properties
     //     p1: p1, // Update the player property
