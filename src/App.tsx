@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Box } from "./components/Box";
 import { io } from "socket.io-client";
 import { Invitation } from "./components/Invitation";
+import Board from "../src/images/CropedCleanedBoard.png";
 
 const socket = io("http://localhost:3001"); // Replace with your server URL
 
@@ -47,24 +48,37 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={invitePlayer}>invite a player</button>
-      <Button variant="contained" disabled={false}>
-        Your Turn
-      </Button>
-
+      <div style={{ margin: "4px" }}>
+        <Button onClick={invitePlayer}>invite a player</Button>
+        <Button
+          style={{ marginLeft: "5px" }}
+          variant="contained"
+          disabled={!canPlay}
+        >
+          Your Turn
+        </Button>
+      </div>
       <Grid container>
         <Grid item container xs sm></Grid>
         <Grid
           item
           container
           xs={12}
-          sm={8}
-          md={5}
-          style={{ border: "2px solid black" }}
+          sm={7}
+          md={4.5}
+          style={{
+            backgroundImage: `url(${Board})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
         >
           {arr.map((item) => {
             return (
-              <Grid key={item} item xs={4}>
+              <Grid
+                key={item}
+                item
+                xs={4}
+              >
                 <Box
                   board={board}
                   lobbyId={lobbyId}
@@ -79,7 +93,7 @@ function App() {
         </Grid>
         <Grid item container xs sm></Grid>
       </Grid>
-      
+
       <Invitation socket={socket} />
     </div>
   );
