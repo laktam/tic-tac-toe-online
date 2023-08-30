@@ -3,6 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Box } from "./components/Box";
 import { io } from "socket.io-client";
+import { Invitation } from "./components/Invitation";
 
 const socket = io("http://localhost:3001"); // Replace with your server URL
 
@@ -91,6 +92,7 @@ function App() {
         </Grid>
         <Grid item xs={0} sm={1.5} md={3} />
       </Grid>
+      <Invitation socket={socket} />
     </div>
   );
 }

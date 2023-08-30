@@ -19,17 +19,18 @@ io.on("connection", (socket) => {
   socket.emit("id", socket.id);
 
   //invite a player
-  let lobbyData = {};
+  // let lobbyData = {};
   socket.on("invitePlayer", (data) => {
     console.log(`player ${data.p1} invited ${data.p2}`);
-    lobbyData.p1 = data.p1;
-    lobbyData.p2 = data.p2;
-    console.log("lobby data : ", lobbyData);
+    // lobbyData.p1 = data.p1;
+    // lobbyData.p2 = data.p2;
+    // console.log("lobby data : ", lobbyData);
     io.to(data.p2).emit(`invitation`, { p1: data.p1, p2: data.p2 });
   });
 
-  socket.on("createLobby", (lobby) => {
+  socket.on("createLobby", (lobbyData) => {
     // console.log("Lobby info: ", lobby);
+    console.log('lobby data from second player: ',lobbyData);
     games[lobbyId] = { p1: lobbyData.p1, p2: lobbyData.p2, board: [] };
     console.log("Games ", games);
     socket.emit("lobbyId", lobbyId);

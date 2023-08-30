@@ -16,11 +16,11 @@ type Props = {
 
 export function Invitation(props: Props) {
   const [open, setOpen] = useState(false);
-//   const [data, setData] = useState({ p1: "", p2: "" });
+  const [data, setData] = useState({ p1: "", p2: "" });
   useEffect(() => {
     props.socket.on("invitation", (data) => {
       console.log("invitation from ", data.p1);
-    //   setData(data)
+      setData(data);
       setOpen(true);
     });
   }, []);
@@ -29,8 +29,7 @@ export function Invitation(props: Props) {
     setOpen(false);
   };
   const handleAccept = () => {
-    props.socket.emit("createLobby");// ,data
-    
+    props.socket.emit("createLobby", data);
     setOpen(false);
   };
 
