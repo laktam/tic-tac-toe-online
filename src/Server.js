@@ -69,10 +69,82 @@ io.on("connection", (socket) => {
       //allow other player to move
       io.to(games[data.lobbyId].p1).emit(`canPlay`);
     }
-  });
 
-  //playing
-  let myTurn = false;
+    //winning test
+    if (
+      games[data.lobbyId].board[0] +
+        games[data.lobbyId].board[1] +
+        games[data.lobbyId].board[2] ===
+        "XXX" ||
+      games[data.lobbyId].board[3] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[5] ===
+        "XXX" ||
+      games[data.lobbyId].board[6] +
+        games[data.lobbyId].board[7] +
+        games[data.lobbyId].board[8] ===
+        "XXX" ||
+      games[data.lobbyId].board[0] +
+        games[data.lobbyId].board[3] +
+        games[data.lobbyId].board[6] ===
+        "XXX" ||
+      games[data.lobbyId].board[1] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[7] ===
+        "XXX" ||
+      games[data.lobbyId].board[2] +
+        games[data.lobbyId].board[5] +
+        games[data.lobbyId].board[8] ===
+        "XXX" ||
+      games[data.lobbyId].board[0] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[8] ===
+        "XXX" ||
+      games[data.lobbyId].board[2] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[6] ===
+        "XXX"
+    ) {
+      io.to(games[data.lobbyId].p1).emit(`win`);
+      io.to(games[data.lobbyId].p2).emit(`lose`);
+    } else if (
+      games[data.lobbyId].board[0] +
+        games[data.lobbyId].board[1] +
+        games[data.lobbyId].board[2] ===
+        "OOO" ||
+      games[data.lobbyId].board[3] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[5] ===
+        "OOO" ||
+      games[data.lobbyId].board[6] +
+        games[data.lobbyId].board[7] +
+        games[data.lobbyId].board[8] ===
+        "OOO" ||
+      games[data.lobbyId].board[0] +
+        games[data.lobbyId].board[3] +
+        games[data.lobbyId].board[6] ===
+        "OOO" ||
+      games[data.lobbyId].board[1] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[7] ===
+        "OOO" ||
+      games[data.lobbyId].board[2] +
+        games[data.lobbyId].board[5] +
+        games[data.lobbyId].board[8] ===
+        "OOO" ||
+      games[data.lobbyId].board[0] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[8] ===
+        "OOO" ||
+      games[data.lobbyId].board[2] +
+        games[data.lobbyId].board[4] +
+        games[data.lobbyId].board[6] ===
+        "OOO"
+    ) {
+      io.to(games[data.lobbyId].p2).emit(`win`);
+      io.to(games[data.lobbyId].p1).emit(`lose`);
+    }
+  });
 
   socket.on("disconnect", () => {
     console.log("User disconnected");

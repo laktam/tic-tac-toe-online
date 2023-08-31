@@ -41,6 +41,15 @@ function App() {
     });
   }, []);
 
+  socket.on("win", () => {
+    console.log("You Won");
+    setCanPlay(false);
+  });
+  socket.on("lose", () => {
+    console.log("You Lost");
+    setCanPlay(false);
+  });
+
   const invitePlayer = () => {
     // const p2 = window.prompt("Please enter player id:");
     // if (p2) setOther(p2);
