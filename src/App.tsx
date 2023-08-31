@@ -4,8 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Box } from "./components/Box";
 import { io } from "socket.io-client";
 import { Invitation } from "./components/Invitation";
-import Board from "../src/images/CropedCleanedBoard.png";
-import { inherits } from "util";
+import Board from "../src/images/CropedCleanedGrayBoard.png";
+import { BackDrop } from "./components/BackDrop";
 
 const socket = io("http://localhost:3001"); // Replace with your server URL
 
@@ -15,7 +15,7 @@ function App() {
   const [board, setBoard] = useState([]);
   const [player, setPlayer] = useState("");
   const [other, setOther] = useState("");
-  const [lobbyId, setLobbyId] = useState();
+  const [lobbyId, setLobbyId] = useState(0);
   //
   const [canPlay, setCanPlay] = useState(false);
   //always change it to false after playing,
@@ -110,6 +110,7 @@ function App() {
             backgroundImage: `url(${Board})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
+            position: "relative",
           }}
         >
           {arr.map((item) => {
@@ -126,6 +127,7 @@ function App() {
               </Grid>
             );
           })}
+          <BackDrop start={lobbyId > 0} />
         </Grid>
         <Grid item container xs sm></Grid>
       </Grid>

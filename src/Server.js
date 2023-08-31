@@ -11,7 +11,7 @@ const io = socketIo(server, {
   },
 });
 const PORT = process.env.PORT || 3001;
-let lobbyId = 0;
+let lobbyId = 1;
 const games = {};
 // Handle WebSocket connections
 io.on("connection", (socket) => {
