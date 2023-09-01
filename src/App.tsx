@@ -15,7 +15,8 @@ import { Invitation } from "./components/Invitation";
 import Board from "../src/images/CropedCleanedGrayBoard.png";
 import { BackDrop } from "./components/BackDrop";
 
-const socket = io("http://localhost:3001"); // Replace with your server URL
+// const socket = io("http://localhost:3001"); // Replace with your server URL
+const socket = io("https://tic-tac-tco.adaptable.app/"); // Replace with your server URL
 
 function App() {
   // const [player, setPlayer] = useState(true);
