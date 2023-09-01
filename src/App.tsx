@@ -1,4 +1,12 @@
-import { Button, Chip, Grid, TextField } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Backdrop,
+  Button,
+  Chip,
+  Grid,
+  TextField,
+} from "@mui/material";
 import "./App.css";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Box } from "./components/Box";
@@ -16,6 +24,8 @@ function App() {
   const [player, setPlayer] = useState("");
   const [other, setOther] = useState("");
   const [lobbyId, setLobbyId] = useState(0);
+  const [win, setWin] = useState(false);
+  const [lose, setLose] = useState(false);
   //
   const [canPlay, setCanPlay] = useState(false);
   //always change it to false after playing,
@@ -43,10 +53,12 @@ function App() {
 
   socket.on("win", () => {
     console.log("You Won");
+    setWin(true);
     setCanPlay(false);
   });
   socket.on("lose", () => {
     console.log("You Lost");
+    setLose(true);
     setCanPlay(false);
   });
 
@@ -57,6 +69,12 @@ function App() {
   };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setOther(event.target.value);
+  };
+
+  const handleBackDropClose = () => {
+    setWin(false);
+    setLose(false);
+    setBoard([]);
   };
 
   return (
@@ -133,6 +151,24 @@ function App() {
       </Grid>
 
       <Invitation socket={socket} />
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={win || lose}
+        onClick={handleBackDropClose}
+      >
+        {lose ? (
+          <Alert severity="error">
+            <strong>Your Lost</strong>
+          </Alert>
+        ) : win ? (
+          <Alert severity="success">
+            <strong>Your Won</strong>
+          </Alert>
+        ) : (
+          ""
+        )}
+      </Backdrop>
     </div>
   );
 }

@@ -107,6 +107,7 @@ io.on("connection", (socket) => {
     ) {
       io.to(games[data.lobbyId].p1).emit(`win`);
       io.to(games[data.lobbyId].p2).emit(`lose`);
+      games[data.lobbyId].board = [];
     } else if (
       games[data.lobbyId].board[0] +
         games[data.lobbyId].board[1] +
@@ -143,6 +144,7 @@ io.on("connection", (socket) => {
     ) {
       io.to(games[data.lobbyId].p2).emit(`win`);
       io.to(games[data.lobbyId].p1).emit(`lose`);
+      games[data.lobbyId].board = [];
     }
   });
 
