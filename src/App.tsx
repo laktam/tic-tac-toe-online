@@ -16,11 +16,11 @@ import { Invitation } from "./components/Invitation";
 import Board from "../src/images/CropedCleanedGrayBoard.png";
 import { BackDrop } from "./components/BackDrop";
 
-// const socket = io("http://localhost:3001"); // Replace with your server URL
-// const socket = io("http://tic-tac-toe-express.eu-4.evennode.com/"); // Replace with your server URL
-const socket = io(
-  "https://cors-anywhere.herokuapp.com/http://tic-tac-toe-express.eu-4.evennode.com/"
-);
+const socket = io("http://localhost:3001"); 
+// const socket = io("http://tic-tac-toe-express.eu-4.evennode.com/"); 
+// const socket = io(
+//   "https://cors-anywhere.herokuapp.com/http://tic-tac-toe-express.eu-4.evennode.com/"
+// );
 
 function App() {
   // const [player, setPlayer] = useState(true);
